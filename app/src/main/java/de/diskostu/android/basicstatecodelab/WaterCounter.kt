@@ -17,11 +17,13 @@ import androidx.compose.ui.unit.dp
 fun WaterCounter(modifier: Modifier = Modifier) {
     Column(modifier = modifier.padding(16.dp)) {
         var count by remember { mutableStateOf(0) }
-        if (count > 0) {
-            Text("You've had $count glasses.")
-        }
+
         Button(onClick = { count++ }, Modifier.padding(top = 8.dp), enabled = count < 10) {
             Text("Add one")
+        }
+
+        if (count > 0) {
+            Text("You've had $count glasses.")
         }
     }
 }
@@ -35,21 +37,6 @@ fun WaterCounterDemo(modifier: Modifier = Modifier) {
     Column(modifier = modifier.padding(16.dp)) {
         var count by remember { mutableStateOf(0) }
 
-        if (count > 0) {
-            // if WellnessTaskItem was displayed and then "closed", it will stay "closed"
-            // even if you add more glasses of water. This is because "showTask" is remembered if the code
-            // inside this "if" is executed during recomposition.
-            // On the other hand, if the count gets reset to 0 with the "reset" button, the code inside
-            // this if is NOT executed and thus all "remembered" fields inside this "if"
-            // will be forgotten.
-            var showTask by remember { mutableStateOf(true) }
-            if (showTask) {
-                WellnessTaskItem(
-                    taskname = "Have you taken your 15 minute walk today?",
-                    onClose = { showTask = false })
-            }
-            Text("You've had $count glasses.")
-        }
         Row(Modifier.padding(top = 8.dp)) {
             Button(
                 onClick = { count++ },
@@ -63,6 +50,24 @@ fun WaterCounterDemo(modifier: Modifier = Modifier) {
                 enabled = count > 0
             ) {
                 Text(text = "Reset water counter")
+            }
+        }
+
+        if (count > 0) {
+            // if WellnessTaskItem was displayed and then "closed", it will stay "closed"
+            // even if you add more glasses of water. This is because "showTask" is remembered if the code
+            // inside this "if" is executed during recomposition. "showTask" is never again set to "true", only
+            // once on initialization (mutableStateOf(true)).
+            // On the other hand, if the count gets reset to 0 with the "reset" button, the code inside
+            // this if is NOT executed and thus all "remembered" fields inside this "if"
+            // will be forgotten.
+            Text("You've had $count glasses.")
+
+            var showTask by remember { mutableStateOf(true) }
+            if (showTask) {
+                WellnessTaskItem(
+                    taskname = "Have you taken your 15 minute walk today?",
+                    onClose = { showTask = false })
             }
         }
     }
