@@ -50,6 +50,8 @@ fun WaterCounterDemo(modifier: Modifier = Modifier) {
             if (showTask) {
                 WellnessTaskItem(
                     taskname = "Have you taken your 15 minute walk today?",
+                    checked = false,
+                    onCheckedChange = {},
                     onClose = { showTask = false })
             }
         }
