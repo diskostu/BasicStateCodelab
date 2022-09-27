@@ -37,6 +37,7 @@ fun WellnessTaskItem(
             text = taskname
         )
         Checkbox(checked = checked, onCheckedChange = onCheckedChange)
+        // the onClick-Event now goes a long way up, until WellnessScreen
         IconButton(onClick = onClose) {
             Icon(imageVector = Icons.Filled.Close, contentDescription = "Close")
         }
@@ -45,14 +46,18 @@ fun WellnessTaskItem(
 
 
 @Composable
-fun WellnessTaskItem(taskname: String, modifier: Modifier = Modifier) {
+fun WellnessTaskItem(
+    taskname: String,
+    onClose: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     var checkedState by rememberSaveable { mutableStateOf(false) }
 
     WellnessTaskItem(
         taskname = taskname,
         checked = checkedState,
         onCheckedChange = { newValue -> checkedState = newValue },
-        onClose = { },
+        onClose = onClose,
         modifier = modifier
     )
 }
