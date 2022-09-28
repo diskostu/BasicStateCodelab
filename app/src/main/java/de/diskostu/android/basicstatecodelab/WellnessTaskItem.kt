@@ -11,8 +11,8 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import de.diskostu.android.basicstatecodelab.util.CompletePreviews
 
 @Composable
 fun WellnessTaskItem(
@@ -49,8 +49,8 @@ fun WellnessTaskItem(
 }
 
 
-@Preview(showBackground = true)
 @Composable
+@CompletePreviews
 fun WellnessTaskItemPreview() {
     WellnessTaskItem(
         taskname = "Do something",
